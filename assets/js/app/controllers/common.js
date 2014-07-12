@@ -7,7 +7,7 @@ define([
 	"helpers/handlebars",
 	"helpers/jquery",
 	"helpers/underscore"
-], function( Backbone, Locale ){
+], function( Backbone, APP, Locale ){
 
 	var Data = Backbone.Model.extend({
 		// add is like set but only if not available
