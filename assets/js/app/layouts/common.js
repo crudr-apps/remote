@@ -1,16 +1,16 @@
-define(["backbone"], function( Backbone ){
+define(["backbone", "backbone.app"], function( Backbone, APP ){
 
-	return Backbone.View.extend({
-
+	return APP.Layout.extend({
+		/*
+		 // already part of Backbone APP...
 		el: "body",
 
 		options: {
-			
+
 		},
 
 		views: new Backbone.Model(),
-
-		
+		*/
 	});
 
 });

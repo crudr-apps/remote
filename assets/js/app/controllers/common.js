@@ -1,12 +1,13 @@
 define([
 	"backbone",
+	"backbone.app",
 	"app/models/locale",
 	"helpers/common",
 	"helpers/analytics",
 	"helpers/handlebars",
 	"helpers/jquery",
 	"helpers/underscore"
-], function( Backbone, Locale ){
+], function( Backbone, APP, Locale ){
 
 	var Data = Backbone.Model.extend({
 		// add is like set but only if not available
@@ -22,7 +23,7 @@ define([
 		}
 	});
 
-	return Backbone.Router.extend({
+	return APP.Router.extend({
 
 		options: {
 			session: {
@@ -31,14 +32,10 @@ define([
 			}
 		},
 
-		state: {
-			rendered: false
-		},
-
-		data: new Data(),
+		data: new Data(), // move to backbone app?
 
 		initialize: function( options ){
-			
+
 			// language file
 			this.data.set({
 				locale: new Locale()

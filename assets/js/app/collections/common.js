@@ -1,7 +1,9 @@
 
-define(["backbone", "underscore"], function( Backbone, _ ){
+define(["underscore", "backbone.app"], function( _, APP ){
 
-	return Backbone.Collection.extend({
+	var Parent = APP.Collection;
+
+	return Parent.extend({
 
 		options: {
 			autofetch: false
