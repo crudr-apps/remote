@@ -1,15 +1,8 @@
 html, body {
-	.sans-serif-font;
-	color: #666666;
-	font-weight: 400;
 	width: 100%;
 	height: 100%;
-	overflow-x: hidden;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	-webkit-overflow-scrolling: touch;
 }
-
 html {
 	font-size: 100%;
 	line-height: 150%;
@@ -17,6 +10,20 @@ html {
 
 body {
 	font-size: 1em;
+	.sans-serif-font;
+	color: @color_txt_primary;
+	background-color: @color_bg_primary;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	
+}
+
+body.touch {
+	width: 100%;
+	height:	100%;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
 }
 
 .font-face('dejavusansmono', '../fonts');
