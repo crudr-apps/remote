@@ -1,6 +1,8 @@
-define(["backbone", "backbone.app"], function( Backbone, APP ){
+define(["app/view/common", "backbone.app"], function( Common, APP ){
 
-	var View = Backbone.View.extend({
+	var Parent = Common;
+
+	var View = Parent.extend({
 
 		options: {
 
