@@ -20,7 +20,7 @@ define([
 			}
 		},
 
-		data: new Data(), // move to backbone app?
+		data: new APP.Model(), // move to backbone app?
 
 		initialize: function( options ){
 
