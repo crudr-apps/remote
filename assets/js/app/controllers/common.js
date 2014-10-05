@@ -9,21 +9,9 @@ define([
 	"helpers/underscore"
 ], function( Backbone, APP, Locale ){
 
-	var Data = Backbone.Model.extend({
-		// add is like set but only if not available
-		add: function( obj ){
-			var self = this;
-			var data = {};
-			_.each( obj, function( item, key ){
-				if( _.isUndefined( self.get(key) ) ){
-					data[key] = item;
-				}
-			});
-			this.set( data );
-		}
-	});
+	var Parent = APP.Router;
 
-	return APP.Router.extend({
+	return Parent.extend({
 
 		options: {
 			session: {
@@ -41,7 +29,7 @@ define([
 				locale: new Locale()
 			});
 
-			return Backbone.Router.prototype.initialize.call(this, options);
+			return Parent.prototype.initialize.call(this, options);
 		}
 	});
 
