@@ -1,0 +1,69 @@
+{
+	"baseUrl": "/assets/js/",
+
+	"paths": {
+		"common": [
+			"//cdn.kdi.co/js/common/0.4.0/common-min"
+		],
+		"jquery": [
+			"//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min",
+			"//cdn.kdi.co/js/jquery/2.1.1/jquery.min"
+		],
+		"json3": [
+			"//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min",
+			"//cdn.kdi.co/js/json3/3.3.2/json3.min"
+		],
+		"ga": [
+			"//www.google-analytics.com/analytics"
+		],
+		"underscore": [
+			"//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min",
+			"//cdn.kdi.co/js/underscore/1.7.0/underscore-min"
+		],
+		"handlebars": [
+			"//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min",
+			"//cdn.kdi.co/js/handlebars/2.0.0/handlebars.min"
+		],
+		"backbone": [
+			"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min",
+			"//cdn.kdi.co/js/backbone/1.1.2/backbone-min"
+		],
+		"backbone.app": [
+			"//cdn.kdi.co/js/backbone.app/0.9.6/backbone.app-min"
+		]
+	},
+	"shim": {
+		"jquery": {
+			"deps": [
+				"json3"
+			]
+		},
+		"backbone": {
+			"deps": [
+				"underscore",
+				"jquery"
+			],
+			"exports": "Backbone"
+		},
+		"underscore": {
+			"exports": "_"
+		},
+		"backbone.app": {
+			"deps": [
+				"underscore",
+				"jquery",
+				"handlebars",
+				"backbone"
+			],
+			"exports": "APP"
+		}
+	},
+	"deps": [
+		"common",
+		"jquery",
+		"underscore",
+		"backbone",
+		"handlebars",
+		"backbone.app"
+	]
+}
