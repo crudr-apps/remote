@@ -17,7 +17,8 @@ var config = {
 	// third-party credentials
 	creds: {
 		facebook: "",
-		twitter: ""
+		twitter: "",
+		analytics: "UA-12345678-X"
 	},
 	app: {
 		require: true,
