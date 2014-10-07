@@ -21,8 +21,8 @@
 			"//cdn.kdi.co/js/underscore/1.7.0/underscore-min"
 		],
 		"handlebars": [
-			"//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min",
-			"//cdn.kdi.co/js/handlebars/2.0.0/handlebars.min"
+			"//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min",
+			"//cdn.kdi.co/js/handlebars/1.3.0/handlebars.min"
 		],
 		"backbone": [
 			"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min",
@@ -37,6 +37,9 @@
 			"deps": [
 				"json3"
 			]
+		},
+		"handlebars": {
+			"exports": "Handlebars"
 		},
 		"backbone": {
 			"deps": [
