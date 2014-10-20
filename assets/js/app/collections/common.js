@@ -3,7 +3,7 @@ define(["underscore", "backbone.app"], function( _, APP ){
 
 	var Parent = APP.Collection;
 
-	return Parent.extend({
+	var Collection = Parent.extend({
 
 		options: {
 			autofetch: false
@@ -22,5 +22,10 @@ define(["underscore", "backbone.app"], function( _, APP ){
 
 
 	});
+
+	// save in the global namespace
+	APP.Collections.Common = Collection;
+
+	return Collection;
 
 });

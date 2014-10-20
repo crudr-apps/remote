@@ -4,7 +4,11 @@ define(["underscore", "backbone.app"], function( _, APP ){
 
 	var Model = Parent.extend({
 
-		idAttribute: '_id',
+		idAttribute: 'id',
+
+		options: {
+			autofetch: false
+		},
 
 		//
 		initialize: function(model, options){

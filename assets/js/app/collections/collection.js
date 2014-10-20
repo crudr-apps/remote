@@ -1,9 +1,9 @@
 
-define(["app/collections/common"], function( Common ){
+define(["app/collections/common", "backbone.app"], function( Common, APP ){
 
 	var Parent = Common;
 
-	return Parent.extend({
+	var Collection = Parent.extend({
 
 		name: "collection",
 
@@ -20,5 +20,10 @@ define(["app/collections/common"], function( Common ){
 
 
 	});
+
+	// save in the global namespace
+	APP.Collections.Collection = Collection;
+
+	return Collection;
 
 });
