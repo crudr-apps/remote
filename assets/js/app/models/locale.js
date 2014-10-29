@@ -1,8 +1,10 @@
-define(["backbone"], function( Backbone ){
+define(["app/models/common", "backbone.app"], function( Common, APP ){
 
-	var Parent = Backbone.Model;
+	var Parent = Common;
 
-	return Parent.extend({
+	var Model = Parent.extend({
+
+		name: "locale",
 
 		url: function(){
 			return (config.isDev)
@@ -27,5 +29,10 @@ define(["backbone"], function( Backbone ){
 		}
 
 	});
+
+	// save in the global namespace
+	APP.Models.Locale = Model;
+
+	return Model;
 
 });
