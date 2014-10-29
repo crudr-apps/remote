@@ -20,16 +20,6 @@ define(["backbone"], function( Backbone ){
 			"header": {}
 		},
 
-		// move initialize to common model?
-		initialize: function(model, options){
-			this.options = _.extend({}, this.options, options);
-
-			if( this.options.autofetch ){
-				this.fetch();
-			}
-			return Parent.prototype.initialize.apply( this, arguments );
-		},
-
 		parse: function( data ){
 			_.log( "locale", data );
 			window.locale = data;
