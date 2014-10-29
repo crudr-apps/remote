@@ -9,8 +9,8 @@ define(["underscore", "backbone.app"], function( _, APP ){
 		options: {
 			autofetch: false
 		},
-
-		// move initialize to APP model?
+/*
+		// already part of APP model?
 		initialize: function(model, options){
 			this.options = _.extend({}, this.options, options);
 
@@ -19,7 +19,7 @@ define(["underscore", "backbone.app"], function( _, APP ){
 			}
 			return Parent.prototype.initialize.apply( this, arguments );
 		},
-
+*/
 		parse: function( data ){
 			_.log( this.name, data );
 			return data;
