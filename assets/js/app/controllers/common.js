@@ -1,14 +1,14 @@
 define([
 	"backbone",
 	"backbone.app",
+	"libs/backbone.ui.alert",
 	"app/models/locale",
 	"helpers/common",
 	"helpers/analytics",
 	"helpers/handlebars",
 	"helpers/jquery",
 	"helpers/underscore",
-	"libs/backbone.ui.alert"
-], function( Backbone, APP, Locale, Alert ){
+], function( Backbone, APP, Alert, Locale ){
 
 	var Parent = APP.Router;
 
