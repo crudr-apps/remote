@@ -2,7 +2,7 @@
  * @name backbone.app
  * @author makesites
  * Homepage: http://github.com/makesites/backbone-app
- * Version: 0.9.5 (Thu, 19 Jun 2014 06:37:01 GMT)
+ * Version: 0.9.6 (Tue, 21 Oct 2014 10:57:07 GMT)
  * @license Apache License, Version 2.0
  */
 
@@ -41,10 +41,11 @@
 		// check URIs
 		var path = window.location.pathname.split( '/' );
 		// FIX: discart the first item if it's empty
-		if ( path[0] == "" ) path.shift();
+		if ( path[0] === "" ) path.shift();
 		//
 		if( options.require ){
 			// use require.js
+			var routerDefault = options.routePath +"default";
 			if(typeof options.require == "string"){
 				router = options.require;
 			} else {
@@ -52,9 +53,25 @@
 				router += ( !_.isEmpty(path[0]) ) ? path[0] : "default";
 			}
 			require( [ router ], function( controller ){
+				if( controller ){
+					callback( controller );
+				}
+			}, function (err) {
+				//The errback, error callback
+				//The error has a list of modules that failed
+				var failed = err.requireModules && err.requireModules[0];
 				// what if there's no controller???
-				callback( controller );
+				if( failed == router ){
+					// fallback to the default controller
+					require( [ routerDefault ], function( controller ){
+						callback( controller );
+					});
+				} else {
+					//Some other error. Maybe show message to the user.
+					throw err;
+				}
 			});
+
 			return APP;
 
 		} else {
@@ -268,6 +285,18 @@
 			if( this.options.autofetch && !_.isUndefined(this.url) ){
 				this.fetch();
 			}
+		},
+
+		// add is like set but only if not available
+		add: function( obj ){
+			var self = this;
+			var data = {};
+			_.each( obj, function( item, key ){
+				if( _.isUndefined( self.get(key) ) ){
+					data[key] = item;
+				}
+			});
+			this.set( data );
 		},
 
 		// #63 reset model to its default values
@@ -544,7 +573,7 @@
 			// #12 : unbind this container from any previous listeners
 			$(this.el).unbind();
 			//
-			_.bindAll(this, 'render', 'clickExternal', 'postRender');
+			_.bindAll(this, 'render', 'clickExternal', 'postRender', '_url', '_toJSON');
 			// #73 - optionally saving options
 			if( this.options.saveOptions ) this.options = _.extend(this.options, options);
 			// find the data
@@ -614,11 +643,9 @@
 			this._preRender();
 			//
 			var template = ( this.options.type ) ? this.template.get( this.options.type ) : this.template;
-			var data = this._getJSON();
-			// #43 - adding options to the template data
-			var json = ( this.options.inRender ) ? { data : data, options: this.options } : data;
+			var data = this.toJSON();
 			// #19 - checking instance of template before executing as a function
-			var html = ( template instanceof Function ) ? template( json ) : template;
+			var html = ( template instanceof Function ) ? template( data ) : template;
 			// #64 find the render target
 			var $container = this._findContainer();
 			// #66 if parent is the render target, html is the element
@@ -628,7 +655,10 @@
 				html = this.el;
 			}
 			if( this.options.append ){
-				$container.append( html );
+				var $el = $( html );
+				$container.append( $el );
+				// save reference to the appended element
+				if( !this.el ) this.el = $el;
 			} else {
 				$container.html( html );
 			}
@@ -692,6 +722,12 @@
 			return this.off( types, null, fn );
 		},
 
+		toJSON: function(){
+			var data = this._toJSON();
+			// #43 - adding options to the template data
+			return ( this.options.inRender ) ? { data : data, options: this.options } : data;
+		},
+
 		// Internal methods
 
 		_initRender: function(){
@@ -714,7 +750,7 @@
 			// make sure the container is presented
 			if( !this.options.silentRender ) $(this.el).show();
 			// remove loading state (if data has arrived)
-			if( !this.options.data || (this.options.data && !_.isEmpty(this._getJSON()) ) ){
+			if( !this.options.data || (this.options.data && !_.isEmpty(this._toJSON()) ) ){
 				$(this.el).removeClass("loading");
 				// set the appropriate flag
 				this.state.loaded = true;
@@ -726,10 +762,10 @@
 		},
 
 		// get the JSON of the data
-		_getJSON: function(){
+		_toJSON: function(){
 			if( !this.options.data ) return {};
 			if( this.data.toJSON ) return this.data.toJSON();
-			return this.data;
+			return this.data; // in case the data is a JSON...
 		},
 
 		_findContainer: function(){
@@ -1212,9 +1248,17 @@
 			if( this.options.location ){
 				this._geoLocation();
 			}
-			// - setup session (+config), if namespace is available
-			if( APP.Session ) this.session = new APP.Session({}, ( this.options.session || {} ));
+			// - setup session
+			this._setupSession();
 		},
+
+		// - setup session, if namespace is available
+		_setupSession: function(){
+			// fallback to backbone.session
+			var Session = APP.Session || Backbone.Session || false;
+			if( Session ) this.session = new Session({}, ( this.options.session || {} ));
+		},
+
 		// set the api url for all ajax requests
 		_ajaxPrefilter: function( api ){
 			var session = this.session || false;
@@ -1694,11 +1738,14 @@ Tick.prototype = {
 			if( typeof item.fn !== "function") continue;
 			// restrict execution if not time yet
 			var step = (timestamp % item.interval);
-			if( step === 0 || item.run + item.interval > timestamp) continue;
+			//if( step === 0 || item.run + item.interval > timestamp) continue;
+			var asc = (step > this.queue[i].step);
+			this.queue[i].step = step; // store step
+			if( asc ) continue; // still ascending...
 			// run
 			item.fn(); // context?
-			// record last run
 			// condition in case the item was released in the meantime...
+			// record last run
 			if( this.queue[i] ) this.queue[i].run = timestamp;
 		}
 	},
@@ -1800,6 +1847,42 @@ window.Tick = Tick;
   };
 
 })(this.window, this.Backbone);
+
+(function(Backbone){
+	
+	Backbone.inherit = function(){
+		var classes = Array.prototype.slice.call(arguments, 0);
+		// prerequisites
+		if( !classes.length ) return;
+		var Class = classes.pop();
+		
+		// loop through objects
+		for( var i in classes){
+			var Child = classes[i];
+			var Parent = Class;
+			Class = Parent.extend( Child.prototype );
+			// Override the parent constructor
+			// Child prototype.constructor
+			/*
+			var Child = function(){
+				Parent.apply(this, arguments);
+			};
+			*/
+		}
+		// add local inherit 
+		Class.prototype.inherit = inherit;
+		return Class;
+	};
+
+	// local inherit
+	function inherit(){
+		var classes = arguments;
+		// include this in classes (at the front)
+		classes = classes.unshift(this);
+		Backbone.inherit.apply( this, arguments );
+	}
+		
+})(this.Backbone);
 
 
 
