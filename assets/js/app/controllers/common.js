@@ -6,8 +6,9 @@ define([
 	"helpers/analytics",
 	"helpers/handlebars",
 	"helpers/jquery",
-	"helpers/underscore"
-], function( Backbone, APP, Locale ){
+	"helpers/underscore",
+	"libs/backbone.ui.alert"
+], function( Backbone, APP, Locale, Alert ){
 
 	var Parent = APP.Router;
 
@@ -23,7 +24,25 @@ define([
 		data: new APP.Model(), // move to backbone app?
 
 		initialize: function( options ){
-
+			// display any server-side alerts
+			if( typeof client !== "undefined" ){
+				// assuming client has a set structure...
+				// - setting debug flag
+				this.options.debug = client.debug;
+				// - display alerts
+				if( client.alerts ){
+				for( var i in client.alerts ){
+					var messages = client.alerts[i];
+					var type = i;
+					for( var j in messages ){
+						new Alert({
+							message : messages[j],
+							type: type
+						});
+					}
+				}
+				}
+			}
 			// language file
 			this.data.set({
 				locale: new Locale()
