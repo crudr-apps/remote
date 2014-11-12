@@ -28,8 +28,11 @@ var config = {
 	js: {
 		baseUrl: "/assets/js/",
 		paths: {
+			"backbone.app": [
+				"libs/backbone.app"
+			],
 			common: [
-				"/assets/js/libs/common-min"
+				"libs/common-min"
 			],
 			json3: [
 				"//cdnjs.cloudflare.com/ajax/libs/json3/3.3.0/json3.min"
@@ -46,12 +49,13 @@ var config = {
 			backbone: [
 				"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min"
 			],
-			ga: "//www.google-analytics.com/analytics",
-			"backbone.app": [
-				"/assets/js/libs/backbone.app"
-			],
+			ga: "//www.google-analytics.com/analytics"
+
 		},
 		shim: {
+			"backbone.app": {
+				exports: "APP" // global scope not required?
+			},
 			common: {
 				deps: [],
 				exports: "c"
@@ -73,9 +77,6 @@ var config = {
 					"jquery"
 				],
 				exports: "Backbone"
-			},
-			"backbone.app": {
-				exports: "APP" // global scope not required?
 			}
 		},
 		deps: [
@@ -84,8 +85,7 @@ var config = {
 			"jquery",
 			"underscore",
 			"handlebars",
-			"backbone",
-			"backbone.app"
+			"backbone"
 		],
 		callback: function(){
 			window.init();

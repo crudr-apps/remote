@@ -1,4 +1,4 @@
-define(["app/models/common", "backbone.app"], function( Common, APP ){
+define(["backbone.app", "app/models/common"], function( APP, Common ){
 
 	var Parent = Common;
 

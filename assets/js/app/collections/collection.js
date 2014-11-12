@@ -1,5 +1,5 @@
 
-define(["app/collections/common", "backbone.app"], function( Common, APP ){
+define(["backbone.app", "app/collections/common"], function( APP, Common ){
 
 	var Parent = Common;
 

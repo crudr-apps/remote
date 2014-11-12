@@ -1,9 +1,8 @@
 define([
-	"backbone",
 	"backbone.app",
 	"app/controllers/common",
 	"app/layouts/default"
-	], function( Backbone, APP, Common, LayoutDefault ){
+	], function( APP, Common, LayoutDefault ){
 
 	var Router = Common.extend({
 

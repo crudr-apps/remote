@@ -1,4 +1,4 @@
-define(["backbone", "backbone.app"], function( Backbone, APP ){
+define(["backbone.app"], function( APP ){
 
 	return APP.Layout.extend({
 		/*
