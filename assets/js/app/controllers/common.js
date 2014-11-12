@@ -8,6 +8,7 @@ define([
 	"helpers/handlebars",
 	"helpers/jquery",
 	"helpers/underscore",
+	//"libs/backbone.session"
 ], function( Backbone, APP, Alert, Locale ){
 
 	var Parent = APP.Router;
