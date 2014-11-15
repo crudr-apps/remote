@@ -1,0 +1,75 @@
+@media screen and (min-width: @mq_xxl) {
+	body {
+		background-color: black;
+	}
+	
+	p:after {
+		content: "xxl";
+	}
+}
+
+@media screen and (min-width: @mq_l) and (max-width: @mq_xl) {
+	body {
+		background-color: yellow;
+	}
+	
+	p:after {
+		content: "l - xl";
+	}
+}
+
+@media screen and (min-width: @mq_m) and (max-width: @mq_l) {
+	body {
+		background-color: magenta;
+	}
+	
+	p:after {
+		content: "m - l";
+	}
+}
+@media screen and (min-width: @mq_s) and (max-width: @mq_m) {
+	body {
+		background-color: cyan;
+		font-size: 1rem;
+	}
+	
+	p:after {
+		content: "s - m";
+	}
+}
+
+@media screen and (min-width: @mq_xs) and (max-width: @mq_s) {
+	body {
+		background-color: #00f;
+		font-size: .8rem;
+	}
+	
+	p:after {
+		content: "xs - s";
+	}
+}
+
+@media screen and (max-width: @mq_xs) {
+}
+@media all and (min-width: @mq_xxs) and (max-width: @mq_xs) {
+	body {
+		background-color: #0f0;
+		font-size: .6rem;
+	}
+	
+	p:after {
+		content: "xxs - xs";
+	}
+}
+
+@media screen and (max-width: @mq_xxs) {
+
+	body {
+		background-color: #f00;
+		font-size: .6rem;
+	}
+	
+	p:after {
+		content: "xxs";
+	}
+}
