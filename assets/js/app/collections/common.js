@@ -18,8 +18,12 @@ define(["underscore", "backbone.app"], function( _, APP ){
 			if(this.options.autofetch){
 				this.fetch();
 			}
-		}
+		},
 
+		parse: function( data ){
+			_.log( this.name, data );
+			return data;
+		}
 
 	});
 
