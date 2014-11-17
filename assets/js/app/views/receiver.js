@@ -37,7 +37,7 @@ define(["backbone.app", "app/views/common", "libs/DataChannel"], function( APP, 
 
 			// Initialise DataChannel.js
 
-			// Set custom Pusher signalling channel
+			// Set custom signalling channel
 			// https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Signaling.md
 			this.datachannel.openSignalingChannel = this.openSignalingChannel;
 
@@ -91,7 +91,7 @@ define(["backbone.app", "app/views/common", "libs/DataChannel"], function( APP, 
 					if (config.callback) config.callback( crudr.socket() );
 				});
 			}
-			// Proxy Pusher signaller messages to DataChannel
+			// Proxy signaller messages to DataChannel
 			this.model.bind("sync", function(message) {
 				console.log("message receiver", message);
 				config.onmessage(message);

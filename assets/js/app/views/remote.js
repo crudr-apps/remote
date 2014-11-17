@@ -52,7 +52,7 @@ define(["backbone.app", "app/views/common", "libs/DataChannel"], function( APP, 
 			this.datachannel.userid = window.userid; // Math.random() * (9999 - 1000) + 1000;
 
 
-			// Set custom Pusher signalling channel
+			// Set custom signalling channel
 			// https://github.com/muaz-khan/WebRTC-Experiment/blob/master/Signaling.md
 			this.datachannel.openSignalingChannel = this.openSignalingChannel;
 
@@ -98,7 +98,7 @@ define(["backbone.app", "app/views/common", "libs/DataChannel"], function( APP, 
 				channel: channel
 			};
 
-			// Call callback on successful connection to Pusher signalling channel
+			// Call callback on successful connection to signalling channel
 			if( crudr.socket() ){
 				if (config.callback) config.callback( crudr.socket() );
 			} else {
