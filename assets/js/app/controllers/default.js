@@ -1,35 +1,55 @@
 define([
 	"backbone.app",
 	"app/controllers/common",
-	"app/layouts/default"
-	], function( APP, Common, LayoutDefault ){
+	"app/models/remote",
+	"app/layouts/default",
+	"app/layouts/remote"
+	], function( APP, Common, Model, Default, Remote ){
 
 	var Router = Common.extend({
 
 		routes: {
-			"": "index"
+			"": "index",
+			"remote": "remote"
 		},
 
 		index: function(){
-			// check if authenticated
-			//if( this.session.get("auth") ) return this.home();
-
-			_.log("in index");
-			this.data.set({
-			});
-
-			this.layout = new LayoutDefault({ data: this.data });
-		},
-
-		// in case there's a logged in state...
-		home: function(){
-			_.log("in home");
 			var self = this;
 
-			this.data.set({
+			_.log("in index");
+
+			// initialize crudr
+			crudr.connect({ auth: false, log: true }, function( response ){
+
+				self.data.set({
+					remote: new Model()
+				});
+
+				//window.messages = new Messages();
+				//new MessagesView({ el: $('#messages'), collection: messages }).render();
+				self.layout = new Default({ data: self.data });
+
 			});
 
-			//this.layout = new Home({ data: self.data });
+		},
+
+		remote: function(){
+			var self = this;
+
+			_.log("in remote");
+
+			// initialize crudr
+			crudr.connect({ auth: false, log: true }, function( response ){
+
+				self.data.set({
+					remote: new Model()
+				});
+
+				//window.messages = new Messages();
+				//new MessagesView({ el: $('#messages'), collection: messages }).render();
+				self.layout = new Remote({ data: self.data });
+
+			});
 
 		}
 

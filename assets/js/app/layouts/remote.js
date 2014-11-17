@@ -1,10 +1,10 @@
-define(["backbone.app", "app/layouts/common", "app/views/receiver"], function( APP, Common, Receiver ){
+define(["backbone.app", "app/layouts/common", "app/views/remote"], function( APP, Common, Remote ){
 
 	var Parent = Common;
 
 	var Layout = Parent.extend({
 
-		name: "default",
+		name: "remote",
 
 		options: {
 			classNames: ""
@@ -13,7 +13,7 @@ define(["backbone.app", "app/layouts/common", "app/views/receiver"], function( A
 		initialize: function( options ){
 
 			this.set({
-				receiver: new Receiver({
+				receiver: new Remote({
 					model: options.data.get("remote")
 				})
 			});
@@ -23,7 +23,7 @@ define(["backbone.app", "app/layouts/common", "app/views/receiver"], function( A
 	});
 
 	// save in the global namespace
-	APP.Layouts.Default = Layout;
+	APP.Layouts.Remote = Layout;
 
 	return Layout;
 

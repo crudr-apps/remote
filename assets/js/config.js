@@ -49,7 +49,13 @@ var config = {
 			backbone: [
 				"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min"
 			],
-			ga: "//www.google-analytics.com/analytics"
+			ga: "//www.google-analytics.com/analytics",
+			"crudr": [
+				"//localhost/crudr"
+			],
+			"backbone.crudr": [
+				"//rawgit.com/backbone-api/crudr/master/backbone.crudr"
+			]
 
 		},
 		shim: {
@@ -77,6 +83,15 @@ var config = {
 					"jquery"
 				],
 				exports: "Backbone"
+			},
+
+			"backbone.crudr": {
+				deps: [
+					"jquery",
+					"underscore",
+					"backbone",
+					"crudr"
+				],
 			}
 		},
 		deps: [
@@ -85,7 +100,8 @@ var config = {
 			"jquery",
 			"underscore",
 			"handlebars",
-			"backbone"
+			"backbone",
+			"backbone.crudr"
 		],
 		callback: function(){
 			window.init();

@@ -1133,7 +1133,7 @@
 			"_=_": "_fixFB",
 			"access_token=:token": "access_token",
 			"logout": "logout",
-			"*path"  : "_404"
+			//"*path"  : "_404"
 		},
 
 		data: new Backbone.Model(),
@@ -1849,13 +1849,13 @@ window.Tick = Tick;
 })(this.window, this.Backbone);
 
 (function(Backbone){
-	
+
 	Backbone.inherit = function(){
 		var classes = Array.prototype.slice.call(arguments, 0);
 		// prerequisites
 		if( !classes.length ) return;
 		var Class = classes.pop();
-		
+
 		// loop through objects
 		for( var i in classes){
 			var Child = classes[i];
@@ -1869,7 +1869,7 @@ window.Tick = Tick;
 			};
 			*/
 		}
-		// add local inherit 
+		// add local inherit
 		Class.prototype.inherit = inherit;
 		return Class;
 	};
@@ -1881,7 +1881,7 @@ window.Tick = Tick;
 		classes = classes.unshift(this);
 		Backbone.inherit.apply( this, arguments );
 	}
-		
+
 })(this.Backbone);
 
 
